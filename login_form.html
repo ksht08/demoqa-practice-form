@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+        .success {
+            color: green;
+            font-size: 1em;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login Form</h1>
+    <form id="loginForm" action="/login" method="post">
+        <div>
+            <label for="username">Username*:</label><br>
+            <input type="text" id="username" name="username" required>
+            <div id="usernameError" class="error"></div>
+        </div>
+        
+        <div>
+            <label for="password">Password*:</label><br>
+            <input type="password" id="password" name="password" required>
+            <div id="passwordError" class="error"></div>
+        </div>
+        
+        <div>
+            <label for="phone">Phone number:</label><br>
+            <input type="tel" id="phone" name="phone" placeholder="Optional">
+        </div>
+        
+        <div style="margin-top: 15px;">
+            <input type="submit" value="Log In" style="padding: 5px 15px;">
+        </div>
+        
+        <div id="successMessage" class="success"></div>
+    </form>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const usernameError = document.getElementById('usernameError');
+            const passwordError = document.getElementById('passwordError');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Reset previous messages
+            usernameError.textContent = '';
+            passwordError.textContent = '';
+            successMessage.textContent = '';
+            
+            let isValid = true;
+            
+            // Validate username
+            if (!username || username.length < 3 || username.length > 12) {
+                usernameError.textContent = 'Username must be between 3 and 12 characters';
+                isValid = false;
+            }
+            
+            // Validate password
+            if (!password || password.length < 3 || password.length > 12) {
+                passwordError.textContent = 'Password must be between 3 and 12 characters';
+                isValid = false;
+            }
+            
+            // If valid, show success and clear form
+            if (isValid) {
+                successMessage.textContent = 'Log In successful';
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('phone').value = '';
+            }
+        });
+    </script>
+</body>
+</html>

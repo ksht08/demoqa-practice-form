@@ -20,7 +20,7 @@
 </head>
 <body>
     <h1>Login Form</h1>
-    <form id="loginForm" action="/login" method="post">
+    <form id="loginForm">
         <div>
             <label for="username">Username*:</label><br>
             <input type="text" id="username" name="username" required>
@@ -39,7 +39,7 @@
         </div>
         
         <div style="margin-top: 15px;">
-            <input type="submit" value="Log In" style="padding: 5px 15px;">
+            <button type="submit" value="Log In" style="padding: 5px 15px;">Log In</button>
         </div>
         
         <div id="successMessage" class="success"></div>
@@ -62,24 +62,29 @@
             
             let isValid = true;
             
-            // Validate username
+            // Validate username (3-12 chars)
             if (!username || username.length < 3 || username.length > 12) {
                 usernameError.textContent = 'Username must be between 3 and 12 characters';
                 isValid = false;
             }
             
-            // Validate password
+            // Validate password (3-12 chars)
             if (!password || password.length < 3 || password.length > 12) {
                 passwordError.textContent = 'Password must be between 3 and 12 characters';
                 isValid = false;
             }
             
-            // If valid, show success and clear form
+            // If valid, show success, clear form, and update URL
             if (isValid) {
                 successMessage.textContent = 'Log In successful';
                 document.getElementById('username').value = '';
                 document.getElementById('password').value = '';
                 document.getElementById('phone').value = '';
+
+                // Add ?login=true to the current URL
+                const currentUrl = window.location.href.split('?')[0]; // Remove existing params
+                const newUrl = currentUrl + '?login=true';
+                window.history.pushState({}, '', newUrl); // Update URL without reloading
             }
         });
     </script>

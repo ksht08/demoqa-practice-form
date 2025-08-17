@@ -2,7 +2,7 @@ from selene import browser, have, be
 from selene.support.shared import config
 import os
 
-config.hold_browser_open = True # do not close browser after test
+# config.hold_browser_open = True # do not close browser after test
 url = "file://" + os.path.abspath("login_form.html") # open local HTML file
 get_parameter_login = "?login=true"  # query parameter to check in URL
 browser.config.browser_name = "firefox"
@@ -14,7 +14,7 @@ header.should(be.existing).should(be.visible).should(have.text("Login")) # find 
 
 phone = browser.element("#phone")
 (phone.should(be.visible).should(have.no.attribute("required"))
-      .should(have.attribute("placeholder", "Optional"))) # phone input should not be required
+      .should(have.attribute("placeholder").value("Optional")))  # phone input should not be required
 
 username_input = browser.element("#username")
 username_input.should(be.visible).should(have.attribute("required")).type("test user")
@@ -26,10 +26,10 @@ success_msg = browser.element("#successMessage")
 success_msg.should(be.not_.visible)  # initially not visible
 
 login_button = browser.element('button[type="submit"]')
-login_button.should(be.visible).should(have.attribute("value", "Log In")).click()
+login_button.should(be.visible).should(have.attribute("value").value("Log In")).click()
 (success_msg.should(be.visible)
             .should(have.text("Log In successful"))
-            .should(have.css_property("color", "rgb(0, 128, 0)"))) # should be visible after successful login and green color
+            .should(have.css_property("color").value("rgb(0, 128, 0)"))) # should be visible after successful login and green color
 
 browser.should(have.url_containing(get_parameter_login)) # check URL contains query parameter
 

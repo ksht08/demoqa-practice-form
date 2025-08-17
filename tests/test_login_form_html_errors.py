@@ -28,8 +28,8 @@ success_msg.should(be.not_.visible)  # should not be visible before validation
 #check error messages after button click
 (username_error.should(be.visible)
                .should(have.text("Username must be between 3 and 12 characters"))
-               .should(have.css_property("color", "rgb(255, 0, 0)")))  # should be red color
+               .should(have.css_property("color").value("rgb(255, 0, 0)")))  # should be red color
             
 (password_error.should(be.visible)
                .should(have.text("Password must be between 3 and 12 characters"))
-               .should(have.css_property("color", "rgb(255, 0, 0)")))  # should be red color
+               .should(have.css_property("color").value("rgb(255, 0, 0)")))  # should be red color

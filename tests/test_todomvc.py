@@ -36,9 +36,22 @@ def test_add_tasks():
         todo_task.should(be.visible)
 
 def test_complete_task():
-    todo_toggle= browser.all(".todo-list input.toggle")
-    todo_toggle[1].click()  # click on "task 2" to complete it
-    browser.all("li").element_by(have.exact_text("task 2")).should(have.css_class("completed"))
+    todo_toggle =  browser.all(".todo-list input.toggle")
+    browser.element(".clear-completed").should(be.not_.existing)  # initially not visible
     count_toggle = len(todo_toggle)
+    browser.element(".todo-count").should(have.text(f"{count_toggle} items left"))
+    todo_toggle[1].click()  # check "task 2" checkbox
+    browser.all(".todo-list li").element_by(have.exact_text("task 3")).element(".toggle").click() # check "task 3" checkbox
+    completed_task_count = len(browser.all(".todo-list li").by(have.css_class("completed")))
 
-    time.sleep(5) # wait 5 seconds (for debugging purposes)
+    browser.element(".clear-completed").should(be.existing).should(be.visible)  # should be visible after completing a task
+    browser.all("li").element_by(have.exact_text("task 2")).should(have.css_class("completed"))
+    browser.element(".todo-count").should(have.text(f"{count_toggle - completed_task_count} items left"))
+    todo_label = browser.all(".todo-list li .view label")
+    todo_label[0].double_click() # double click on "task 1" to edit it
+    browser.element(".todo-list li.editing .edit").click() # focus on the edit input
+    edit_input = browser.element(".todo-list li.editing .edit")
+    edit_input.perform(command.js.set_value("")).type("NEW name for 'TASK 1'").press_enter()
+    
+
+    time.sleep(3) # wait 3 seconds (for debugging purposes)

@@ -44,8 +44,8 @@ def browser_management(request):
     # Selene config
     config.browser_name = selene_browser_name
     config.base_url = "https://todomvc.com/examples/emberjs/todomvc/dist/"
-    config.window_width = 1380
-    config.window_height = 720
+    config.window_width = 1280
+    config.window_height = 1024
     config.driver_options = options
     config.timeout = 4.0
 

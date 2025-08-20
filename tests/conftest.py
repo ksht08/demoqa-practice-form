@@ -28,7 +28,10 @@ def browser_management(request):
         "firefox": (
             webdriver.FirefoxOptions,
             "firefox",
-            lambda options: setattr(options, "headless", True),
+            lambda options: (
+                options.add_argument("--headless"),
+                options.add_argument("--disable-gpu"),
+            ),
         ),
     }
 

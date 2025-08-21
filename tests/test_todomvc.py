@@ -1,21 +1,26 @@
 from selene import browser, command, have, be
 import time
+import pytest
 # from selene.support.shared import config
 
+@pytest.mark.ui
 def test_open_todo_page():
     browser.should(have.title("TodoMVC"))
 
+@pytest.mark.ui
 def test_h1():
     h1 = browser.element("h1")
     h1.should(be.visible.and_(have.exact_text("todos")))
     # or
     h1.should(be.visible).should(have.exact_text("todos"))
 
+@pytest.mark.ui
 def test_todo_input():
     todo_input = browser.element(".new-todo")
     todo_input.should(be.visible.and_(be.blank))
     todo_input.should(have.attribute("placeholder").value("What needs to be done?"))
 
+@pytest.mark.ui
 def test_add_tasks():
     todo_input = browser.element(".new-todo")
 
@@ -35,6 +40,7 @@ def test_add_tasks():
     for todo_task in todo_list:
         todo_task.should(be.visible)
 
+@pytest.mark.ui
 def test_complete_task():
     todo_toggle =  browser.all(".todo-list input.toggle")
     browser.element(".clear-completed").should(be.not_.existing)  # initially not visible

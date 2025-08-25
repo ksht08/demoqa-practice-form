@@ -4,7 +4,7 @@ import pytest
 
 @pytest.fixture(scope='function', autouse=True)
 def local_browser_setup():
-    config.hold_browser_open = True # do not close browser after test
+    # config.hold_browser_open = True # do not close browser after test
     browser.config.base_url = "https://demoqa.com/automation-practice-form"
     browser.config.browser_name = "firefox"
     config.window_width = 1500

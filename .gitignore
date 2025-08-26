@@ -208,3 +208,6 @@ __marimo__/
 
 # temp folder
 TMP/
+
+# Temporary files
+TMP_bk.zip

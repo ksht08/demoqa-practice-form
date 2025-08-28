@@ -11,7 +11,7 @@ XLSX_SHEET_1 = "sheet 1"
 XLSX_SHEET_2 = "Лист 2"
 
 def test_read_xlsx_file():
-    workbook = load_workbook(XLSX_FILE_PATH)
+    workbook = load_workbook(XLSX_FILE_PATH) # load the workbook
 
     sheet_names = workbook.sheetnames
     print("\n📄 Sheet names:")

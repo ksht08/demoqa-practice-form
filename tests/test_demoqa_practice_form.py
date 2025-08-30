@@ -29,33 +29,45 @@ def local_browser_setup():
     yield
     browser.quit()
 
-def test_practice_form():
+
+def open_browser():
     browser.open("/")
 
-    # check h1
+def check_h1():
+    """
+    Checking h1
+    """
     h1 = browser.element("h1")
     h1.should(be.existing).should(be.visible).should(have.exact_text("Practice Form"))
 
-    # fill first name
+def fill_personal_info():
+    """
+    Fill personal information
+    """
     browser.element("#userName-wrapper #firstName").type(FORM_DATA["first_name"])
-
-    # fill last name
     browser.element("#userName-wrapper #lastName").type(FORM_DATA["last_name"])
-
-    # fill email
     browser.element("#userEmail").type(FORM_DATA["email"])
 
-    # check gender
+def select_gender():
+    """
+    Select gender
+    """
     radio_female = browser.element('label[for="gender-radio-2"]')
     radio_female.click()
     browser.element("#gender-radio-2").should(have.attribute("value").value("Female")).should(be.selected)
 
-    # fill mobile number
+def fill_mobile_number():
+    """
+    Fill mobile number
+    """
     browser.element("#userNumber").should(be.blank)
     browser.element("#userNumber").should(have.attribute("placeholder").value("Mobile Number")).type(FORM_DATA["mobile"])
     browser.element("#userNumber").should(have.attribute("value").value(FORM_DATA["mobile"]))
 
-    # fill date of birth
+def select_date_of_birth():
+    """
+    Select date of birth
+    """
     browser.element(".react-datepicker__input-container").perform(command.js.scroll_into_view)
     browser.element(".react-datepicker__input-container").click()
     browser.element(".react-datepicker-popper").should(be.visible)
@@ -66,23 +78,38 @@ def test_practice_form():
     browser.element(".react-datepicker__day--008").should(have.no.css_class('--outside-month')).click()
     browser.element("#dateOfBirthInput").should(have.attribute("value").value(FORM_DATA["date_of_birth"])).should(be.visible)
 
-    # fill subject
+def select_subjects():
+    """
+    Select subjects
+    """
     browser.element("#subjectsInput").type("social")
     browser.element(".subjects-auto-complete__menu-list").should(be.visible).should(have.exact_text("Social Studies")).click()
 
-    # check hobbies
+def select_hobbies():
+    """
+    Select hobbies
+    """
     checkbox_hobbie = browser.all("#hobbiesWrapper .custom-checkbox")
     checkbox_hobbie.element_by(have.text("Reading")).click()
     checkbox_hobbie.element_by(have.text("Music")).click()
 
-    # upload picture
+def upload_picture():
+    """
+    Upload picture
+    """
     browser.element("#uploadPicture").set_value(PICTURE_PATH)
 
-    # click Submit button
+def submit_form():
+    """
+    Submit the form
+    """
     browser.element("#submit[type='submit']").perform(command.js.scroll_into_view)
     browser.element("#submit[type='submit']").click()
 
-    # check modal
+def verify_modal_data():
+    """
+    Verify modal data
+    """
     browser.element(".modal-content").should(be.visible)
     browser.element(".modal-header").should(have.exact_text("Thanks for submitting the form"))
     table_rows = browser.all("table tbody tr")
@@ -94,3 +121,16 @@ def test_practice_form():
     table_rows.element_by(have.text("Hobbies")).element("td:nth-child(2)").should(
     have.exact_text(f"{FORM_DATA['hobbies'][1]}, {FORM_DATA['hobbies'][2]}"))
     table_rows.element_by(have.text("Picture")).element("td:nth-child(2)").should(have.exact_text(FORM_DATA["picture"]))
+
+def test_practice_form():
+    open_browser()
+    check_h1()
+    fill_personal_info()
+    select_gender()
+    fill_mobile_number()
+    select_date_of_birth()
+    select_subjects()
+    select_hobbies()
+    upload_picture()
+    submit_form()
+    verify_modal_data()

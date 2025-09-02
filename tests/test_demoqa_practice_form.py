@@ -32,12 +32,13 @@ def test_registration_form():
     registration_page.select_hobbies(user.hobbies[1], user.hobbies[2])
     registration_page.upload_picture(user.picture_path)
     registration_page.submit_form()
-    registration_page.assert_user_registration_info(user.full_name,
-                                                    user.email,
-                                                    user.gender,
-                                                    user.mobile,
-                                                    user.subjects,
-                                                    user.hobbies[1],
-                                                    user.hobbies[2],
-                                                    user.picture)
-    print(f"PICTURE PATH: {user.picture}")
+    registration_page.assert_user_registration_info(
+        user.full_name,
+        user.email,
+        user.gender,
+        user.mobile,
+        user.subjects,
+        user.hobbies[1],
+        user.hobbies[2],
+        user.picture
+        )

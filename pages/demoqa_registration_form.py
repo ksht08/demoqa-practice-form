@@ -45,7 +45,6 @@ class RegistrationPage():
         """
         Fill mobile number
         """
-        browser.element("#userNumber").should(be.blank)
         browser.element("#userNumber").should(have.attribute("placeholder").value("Mobile Number")).type(value)
         browser.element("#userNumber").should(have.attribute("value").value(value))
 

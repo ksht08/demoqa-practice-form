@@ -211,3 +211,7 @@ TMP/
 
 # Temporary files
 TMP_bk.zip
+
+# Allure reports
+allure-report/
+tests/allure-results/

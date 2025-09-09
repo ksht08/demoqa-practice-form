@@ -1,26 +1,13 @@
-import pytest
 import allure
 from selene import browser
-from selene.support.shared import config
 from pages.demoqa_registration_form import RegistrationPage
 from data.users import user
-
-@pytest.fixture(scope='function', autouse=True)
-def local_browser_setup():
-    browser.config.base_url = "https://demoqa.com/automation-practice-form"
-    browser.config.browser_name = "firefox"
-    config.window_width = 1500
-    config.window_height = 1024
-
-    yield
-    browser.quit()
 
 allure.feature("DemoQA Practice Form")
 allure.story("User Registration Form Submission")
 @allure.title("Test User Registration Form")
 @allure.description("""
-This test fills out and submits the user registration form
-on DemoQA and verifies the submission.
+This test fills out and submits the user registration form on DemoQA and verifies the submission.
 """)
 def test_registration_form():
     registration_page = RegistrationPage()
@@ -52,6 +39,7 @@ def test_registration_form():
         
     with allure.step("Submit the form"):
         registration_page.submit_form()
+
     with allure.step("Check submission results"):
         registration_page.assert_user_registration_info(
             user.full_name,

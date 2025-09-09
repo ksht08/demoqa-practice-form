@@ -3,13 +3,11 @@ from selene import browser
 from selene.support.shared import config
 from selenium import webdriver
 
-
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="chrome",
                      help="Browser: chrome or firefox")
     parser.addoption("--headless", action="store_true",
                      help="Run in headless mode")
-
 
 @pytest.fixture(scope='session', autouse=True)
 def browser_management(request):
@@ -46,8 +44,8 @@ def browser_management(request):
 
     # Selene config
     config.browser_name = selene_browser_name
-    config.base_url = "https://todomvc.com/examples/emberjs/todomvc/dist/"
-    config.window_width = 1280
+    config.base_url = "https://demoqa.com/automation-practice-form"
+    config.window_width = 1500
     config.window_height = 1024
     config.driver_options = options
     config.timeout = 4.0

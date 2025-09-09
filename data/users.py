@@ -1,6 +1,6 @@
 import os
 
-RESOURCES_DIR = os.path.join(os.path.dirname(__file__), '..', 'resources')
+RESOURCES_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'resources'))
 PICTURE = "avatar.jpg"
 PICTURE_PATH = os.path.join(RESOURCES_DIR, PICTURE)
 

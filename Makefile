@@ -1,6 +1,6 @@
 headless-firefox:
 	pytest $(TEST_FILE) --headless --browser=firefox -v
-# make headless-firefox TEST_FILE=tests/test_todomvc.py
+# make headless-firefox TEST_FILE=tests/<test_file_name>
 
 headless-chrome:
 	pytest $(TEST_FILE) --headless --browser=chrome -v
@@ -11,15 +11,6 @@ chrome:
 firefox:
 	pytest $(TEST_FILE) --browser=firefox -v
 	
-chrome-noconftest:
-	pytest $(TEST_FILE) --noconftest --browser=chrome -v
-
 noconftest:
 	pytest $(TEST_FILE) --noconftest -v
-# make firefox-noconftest TEST_FILE=tests/test_demoqa_practice_form.py
-
-todomvc-headless-firefox:
-	pytest tests/test_todomvc.py --headless --browser=firefox -v
-
-practice-form-local:
-	pytest tests/test_demoqa_practice_form.py --noconftest  -v
+# make firefox-noconftest TEST_FILE=tests/<test_file_name>

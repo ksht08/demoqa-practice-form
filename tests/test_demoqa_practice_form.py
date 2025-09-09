@@ -18,7 +18,7 @@ def test_registration_form():
     with allure.step("Check h1 header"):
         registration_page.check_h1(user.h1)
 
-    with allure.step("Fill out and submit the form"):
+    with allure.step("Fill the form"):
         registration_page.fill_first_name(user.first_name)
         registration_page.fill_last_name(user.last_name)
         registration_page.fill_email(user.email)

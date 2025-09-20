@@ -6,6 +6,7 @@ from data.users import user
 allure.feature("DemoQA Practice Form")
 allure.story("User Registration Form Submission")
 @allure.title("Test User Registration Form")
+@allure.severity(allure.severity_level.CRITICAL)
 @allure.description("""
 This test fills out and submits the user registration form on DemoQA and verifies the submission.
 """)

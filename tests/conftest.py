@@ -1,4 +1,7 @@
 import pytest
+import allure
+import sys
+import platform
 from selene import browser
 from selene.support.shared import config
 from selenium import webdriver
@@ -8,6 +11,25 @@ def pytest_addoption(parser):
                      help="Browser: chrome or firefox")
     parser.addoption("--headless", action="store_true",
                      help="Run in headless mode")
+
+# add browser info to allure report
+@pytest.hookimpl(tryfirst=True)
+def pytest_runtest_setup(item):
+    browser = item.config.getoption("--browser")
+    headless = item.config.getoption("--headless")
+
+    allure.dynamic.tag(browser) # browser name
+    allure.dynamic.tag(f"headless={headless}") # headless = True/False
+    allure.dynamic.tag(f"{platform.system()} {platform.release()}") # OS name + OS version
+    allure.dynamic.tag(f"python={sys.version.split()[0]}") # python version
+
+    allure.dynamic.epic(browser)
+    allure.dynamic.feature(f"headless={headless}")
+    allure.dynamic.story(f"{platform.system()} {platform.release()}")
+
+    # for different test uid in allure reports
+    allure.dynamic.parameter("browser", browser)
+    allure.dynamic.parameter("headless", f"headless={headless}")
 
 @pytest.fixture(scope='session', autouse=True)
 def browser_management(request):

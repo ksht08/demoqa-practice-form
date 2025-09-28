@@ -12,7 +12,7 @@ def pytest_addoption(parser):
     parser.addoption("--headless", action="store_true",
                      help="Run in headless mode")
 
-# add browser info to allure report
+# add browser/OS info to allure report
 @pytest.hookimpl(tryfirst=True)
 def pytest_runtest_setup(item):
     browser = item.config.getoption("--browser")

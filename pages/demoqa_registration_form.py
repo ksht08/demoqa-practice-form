@@ -1,9 +1,6 @@
 from selene import browser, have, be, command
 
 class RegistrationPage():
-    def __init__(self):
-        self.browser = browser
-
     def open(self):
         browser.open("/")
         return self
